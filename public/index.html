@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script
+    src="http://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+    <title>TaskApp</title>
+  </head>
+  <body>
+    <h1>Add Task</h1>
+    <div class="container">
+        <form>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Name</label>
+                <input type="text" class="form-control" id="name" name="username" placeholder="enter name">
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlInput1">Task
+                  </./label>
+              <input class="form-control form-control-sm" id="done" name="done" type="text" placeholder=" Enter your Task ">
+            </div>
+              <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+            </form>
+
+    </div>
+<div class="container my-5">
+  <h1>Get All Task By name</h1>
+    <form>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Name</label>
+            <input type="text" class="form-control" id="username" name="name" placeholder="enter name">
+          </div>
+
+         
+
+          <button class="btn btn-primary" id="AllTask">AllTask</button>      
+        </form>
+    </div>
+
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name </th>
+            <th scope="col">Task</th>
+           
+          </tr>
+        </thead>
+        <tbody id="tablebody">
+          <tr>
+            <th scope="row">1</th>
+            <td>name</td>
+            <td>Task</td>
+            
+          </tr>
+        
+        </tbody>
+      </table>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+ 
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ 
+<script>
+    document.getElementById("btn").addEventListener('click',(e)=>{
+e.preventDefault();
+$(document).ready(function(){
+
+// jQuery methods go here...
+let name=$("#name").val();
+let done=$("#done").val();
+console.log(name+" "+done);
+$.post('/tasks',{username:name,done:done},(data)=>{
+    console.log(data);
+      })
+});
+
+
+console.log("hii");
+    })
+    document.getElementById("AllTask").addEventListener('click',(e)=>{
+e.preventDefault();
+
+let namefind=document.getElementById("username").value;
+console.log(namefind);
+$.post('/alltask',{name:namefind},(data)=>{
+let html="";
+
+    for(let d of data ){
+html+=` <tr>
+      <th scope="row">1</th>
+      <td>${d.name}</td>
+      <td>${d.done}</td>
+      
+    </tr>`;
+    console.log(d.name+""+d.done);
+    }
+
+    $("#tablebody").append(html);
+})
+
+
+    })
+    </script>
+
+</body>
+</html>
